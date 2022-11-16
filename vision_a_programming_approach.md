@@ -36,7 +36,7 @@ So there arises naturally the mathematical problem of telling whether two given 
 
 When things can be represented in finite terms, this problem can also be seen as a computational one.
 However, from definition one can only argue that the problem is $NP$ for many cases. For example, isomorphism of graphs are actually NP-hard.
-But the good new is, the problem is not always NP-hard. Mathematicians have used `invariants` to simplify the isomorphism problem.
+But the good news is, the problem is not always NP-hard. Mathematicians have used `invariants` to simplify the isomorphism problem.
 
 An invariant is roughly a mathematically defined mapping from a category to a set, such that isomorphic objects are mapped to the same value.
 If we're lucky that this invariant completely determines isomorphic classes, then basically the mathematical problem is solved.
