@@ -1,10 +1,10 @@
 # Overview
 
-We claim there exists computer vision models superior over deep learning:
+We claim there exists computer vision models undiscovered superior over deep learning:
 
 - accuracy: equal or higher
 - inference efficiency: 20 times faster for MNIST, 100 times faster for ImageNet
-- robustness: theoreticall provable
+- robustness: theoretically provable
 - explainability: just like software engineering.
 
 But they haven't been discovered yet because of two obstacles:
