@@ -1,11 +1,11 @@
 # Overview
 
-We claim there exists a multitude of programs for computer vision tasks superior over deep learning that are
+We claim there exists computer vision models superior over deep learning:
 
-- as accurate or more
-- much more efficient
-- truly robustness
-- fully explainable, just like a software.
+- accuracy: equal or higher
+- inference efficiency: 20 times faster for MNIST, 100 times faster for ImageNet
+- robustness: theoreticall provable
+- explainability: just like software engineering.
 
 But they haven't been discovered yet because of two obstacles:
 
