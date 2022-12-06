@@ -1,20 +1,35 @@
 # Overview
 
-We claim there exists computer vision models undiscovered superior over deep learning:
+Deep learning has achieved a lot, but we claim it's still far away from optimal.
 
-- accuracy: equal or higher
-- inference efficiency: 20 times faster for MNIST, 100 times faster for ImageNet
-- robustness: theoretically provable
-- explainability: just like software engineering.
+The insight is that: an AI problem typically involves both statistical and computational challenge, yet deep learning is mostly about function fitting under statistical loss using matrix operations. It can't invent new algorithms and data structures. As a result, it's inefficient, hard to train, volatile, and inexplainable.
 
-But they haven't been discovered yet because of two obstacles:
+We shall exhibit a new AI paradigm fundamentally different from deep learning.
 
-- lack of an accurate and powerful mathematical modeling of shape information
-- difficulty in combining software engineering and machine learning
+## Prediction
 
-In the last five years, we believe that we solved the two obstacles with
+The "models" become prediction programs that is equally or more accurate, efficient, robust and explanable.
 
-- a family of shape description algorithms inspired by sketching in painting
-- a new programming language called husky, which combines the good
+True machine learning shouldn't be limited to matrix operations.
 
-- significantly easier to obtain, even without GPUs (with tools we invent).
+Deep learning doesn't exhaust the full potential of machines.
+
+For example, no algorithm for quick sort is about matrix operations.
+
+Matrix is just a limitation of contemporary machine learning.
+
+Machine learning is not just about matrices, but about any program runnable on a machine.
+
+Deep learning can be accurate, but it can't be efficient, robust, explainable at the same time, because it affords only matrix operations.
+
+## Development
+
+The "training processes" become software development that is significantly cheaper, predictable, explainable, accumulative and maintable.
+
+go beyond sgd
+
+Human expertise can't combine with SGD.
+
+We replace matrix operations with functions over geometric objects instead.
+
+## New Paradigm
