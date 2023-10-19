@@ -12,6 +12,7 @@
 \usepackage{amsthm}
 \usepackage{enumerate}
 \usepackage{mathrsfs}
+\usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage[outputdir=build]{minted}
 \theoremstyle{definition}
@@ -31,6 +32,9 @@
 \usepackage{CJK}
 \usepackage{tcolorbox}
 \usepackage{listings}
+\newcommand{\rust}[1]{\mintinline{Rust}{#1}}
+\newcommand{\husky}[1]{\mintinline{Rust}{#1}}
+\newcommand{\cpp}[1]{\mintinline{cpp}{#1}}
 \definecolor{lightblue}{rgb}{0.53, 0.81, 0.98}
 \useoutertheme{split}
 \usecolortheme{whale}
@@ -67,6 +71,12 @@
 \section{Introduction}
 
 \begin{frame}
+\frametitle{A New Programming Language, Husky}
+
+Disclaimer: I'm working on Machine Learning Theory and Programming Language for AI, but this talk will focus on Programming Language Design, and won't go into details about Machine Learning and AI.
+\end{frame}
+
+\begin{frame}
 \frametitle{Why a New Programming Language?}
 \begin{itemize}
 	\item I was working on better AI algorithms beyond deep learning
@@ -87,12 +97,41 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{What are these AI ideas like?}
+\frametitle{Current-Generation AI}
+\begin{itemize}
+	\item I'm not against deep learning AIs are AGIs, but I believe they are not so efficient
+	\item Two types of efficiency:
+	\begin{itemize}
+		\item Computational. Training/inference time computation cost and requirement, memory, latency
+		\item Statistical. Number of samples needed.
+	\end{itemize}
+	\item Although deep learning can be as accurate as humans in many cases, its efficiency often can't be as good as humans.
+	\item Artificial intelligence prioritizes accuracy over efficiency, whereas natural intelligence evolves under rigorous constraint on efficiency.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Theory for the Gap Between Efficiency}
+\begin{itemize}
+	\item The inference process of many ML problems are actually NP-problem in disguise:
+	\begin{itemize}
+		\item In computer vision, template matching is about finding the configuration with minimal loss
+		\item In natural language processing, one needs to disambiguate meaning so that the whole text makes sense
+	\end{itemize}
+	\item It takes relatively little data to learn the verifier, but maybe much more to learn the solver, and much much more to learn a near-optimal solver
+	\item Human learns how to verify, but current AI not so much
+	\item RLHF can be thought of as a crude verifier
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{What are Next-Generation AI ideas like?}
 I have been researching on these ideas for 6 years, complicated enough to give several lectures upon, and not yet reaching a prototype, so I only give impressions rather than details,
 \begin{itemize}
+	\item learns a verifier
 	\item modular and domain specific
 	\item models contains operations that are not matrix operations
-	\item more efficient than deep learning only, computationally and statistically
+	\item more efficient than deep learning only, computationally (both training and inference) and statistically
 	\item merges symbolic AI, neural AI, programming language, formal verification, database, etc
 \end{itemize}
 \end{frame}
@@ -101,72 +140,10 @@ I have been researching on these ideas for 6 years, complicated enough to give s
 \frametitle{What is Husky}
 A new language created for next-generation AI/software. It features
 \begin{itemize}
-	\item it has a novel programming paradigm called \textbf{ascension}
+	\item it merges features from modern programming languages.
+	\item it has a novel AI programming paradigm called \textbf{ascension}
 	\item it has a powerful \textbf{debugging system}
-	\item it merges features from modern regular languages including C/C++, Rust, python, Haskell, Lean, ATS, etc.
-	\begin{itemize}
-		\item its name `\textcolor{orange}{Husky}' comes from `\textcolor{orange}{H}a\textcolor{orange}{sk}ell' and `R\textcolor{orange}{us}t' and `p\textcolor{orange}{y}thon'
-		\item its file extension `\textcolor{orange}{hsy}' comes from `\textcolor{orange}{hs}' (Haskell) `\textcolor{orange}{rs}' (Rust) and `\textcolor{orange}{py}' (python)
-	\end{itemize}
-	\item it's implemented by one person with high focus on development efficiency and ergonomity, everything is optimized for incremental computation, including syntax, semantics, ide support, compilation, evalution.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{What is Husky}
-A new language created for next-generation AI/software. It features
-\begin{itemize}
-	\item it has a novel programming paradigm called \textbf{ascension}
-	\begin{itemize}
-		\item designed for 
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{What is Husky}
-A new language created for next-generation AI/software. It features
-\begin{itemize}
-	\item it has a novel programming paradigm called \textbf{ascension}
-	\item it has a powerful \textbf{debugging system}
-	\begin{itemize}
-		\item its name `\textcolor{orange}{Husky}' comes from `\textcolor{orange}{H}a\textcolor{orange}{sk}ell' and `R\textcolor{orange}{us}t' and `p\textcolor{orange}{y}thon'
-		\item its file extension `\textcolor{orange}{hsy}' comes from `\textcolor{orange}{hs}' (Haskell) `r\textcolor{orange}{s}' (Rust) and `p\textcolor{orange}{y}' (python)
-		\item its package manager called `\textcolor{orange}{corgi}' is just like `cargo'
-	\end{itemize}
-	\item it's implemented by one person with high focus on development efficient, everything is optimized for incremental computation, including syntax, semantics, ide support, compilation, evalution.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{What is Husky}
-A new language created for next-generation AI/software. It features
-\begin{itemize}
-	\item it has a novel programming paradigm called \textbf{ascension}
-	\item it has a powerful \textbf{debugging system}
-	\item it merges features from modern regular languages including C/C++, Rust, python, Haskell, Lean, ATS, etc.
-	\begin{itemize}
-		\item its name `\textcolor{orange}{Husky}' comes from `\textcolor{orange}{H}a\textcolor{orange}{sk}ell' and `R\textcolor{orange}{us}t' and `p\textcolor{orange}{y}thon'
-		\item its file extension `\textcolor{orange}{hsy}' comes from `\textcolor{orange}{hs}' (Haskell) `\textcolor{orange}{rs}' (Rust) and `\textcolor{orange}{py}' (python)
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{An Ambitious Project}
-All the following is designed and implemented by one person to play well together and to be optimized for incremental development and customizable for specific coding tasks:
-\begin{itemize}
-	\item Syntax
-	\item Semantics
-
-	\textcolor{gray}{Type System, Attributes, Compiler Magic, Paradigm, ...}
-	\item IDE support
-
-	\textcolor{gray}{semantic token, hover, completion, ...}
-	\item Computation
-
-	\textcolor{gray}{Compiler, Interpreter, Runtime}
-	\item Debugger
+	\item it's highly optimized for incremental computation.
 \end{itemize}
 \end{frame}
 
@@ -176,8 +153,8 @@ All the following is designed and implemented by one person to play well togethe
 	\item For the 4 years, it went though several stages,
 	\begin{itemize}
 		\item Being a Python library. Debugging is like hell.
-		\item Being a C++ macro library. Debugging is enable by playing with
-		\item Being a multi-paradigm programming language written in C++ (30k lines of code), with good features from C++ and Rust.
+		\item Being a C++ macro library. Debugging is possible by playing with templates. But compilation and error messages are like hell.
+		\item Becomes a multi-paradigm programming language written in C++ (30k lines of code), with good features from C++ and Rust.
 		\item Rewritten in Rust, with good features from C++ and Rust and Lean and a new paradigm called Ascension.
 	\end{itemize}
 	\item The source code of the last working prototype is 40k lines of Rust code, with limited functionality, tons of bugs, and not so clean code
@@ -185,7 +162,20 @@ All the following is designed and implemented by one person to play well togethe
 \end{frame}
 
 \begin{frame}
-\frametitle{Achievement} Hand written code (without using any form of machine learning) for classifying hand-written digits (MNIST), 80\% accuracy, not much effort because of bugs
+\frametitle{Old Syntax}
+\includegraphics[width=\linewidth]{snapshots/old_syntax00}
+\end{frame}
+
+\begin{frame}
+\frametitle{``Achievement''} Hand written code (without using any form of machine learning) for classifying hand-written digits (MNIST), 80\% accuracy, not much effort because of bugs
+
+\includegraphics[width=\linewidth]{snapshots/mnist_debug_screenshot00.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{``Achievement''}
+
+\includegraphics[width=\linewidth]{snapshots/mnist_debug_screenshot01.png}
 \end{frame}
 
 \begin{frame}
@@ -205,26 +195,415 @@ All the following is designed and implemented by one person to play well togethe
 \end{frame}
 
 \begin{frame}
-\frametitle{Future}
+\frametitle{Near Future: Publish or Perish}
+\begin{itemize}
+	\item I'm rushing towards a new prototype
+	\item In the following one or two years, I will use it for 
+	\begin{itemize}
+		\item new computer vision models that run faster on phones or IoT devices
+		\item machine learning theories for image classification
+	\end{itemize}
+	\item it's about time to write papers
+\end{itemize}
 \end{frame}
 
-\section{Notations}
-
 \begin{frame}
-\frametitle{Notations: Type Theory}
+\frametitle{Far Future: Keep Agile}
+\begin{itemize}
+	\item What I don't like is, run into stable version and then discover the features don't satisfy the needs.
+	\item Agility: keep language unstable, test it for various tasks, and gradually adapt.
+	\item 5-10 years from version 0.1, 15-20 years from version 1.0.
+	\item Good enough to apply it for AI research within months.
+	\item For production, transpile into C or Zig or even high level C++ or Rust.
+\end{itemize}
+\end{frame}
 
-A type is basically a set.
+
+
+\section{Basic Designs}
+\begin{frame}
+\frametitle{Husky Merges Features of Modern Languages} 
+\begin{itemize}
+	\item its name `\textcolor{orange}{Husky}' comes from `\textcolor{orange}{H}a\textcolor{orange}{sk}ell' and `R\textcolor{orange}{us}t' and `p\textcolor{orange}{y}thon'
+	\item its file extension `\textcolor{orange}{hsy}' comes from `\textcolor{orange}{hs}' (Haskell) `r\textcolor{orange}{s}' (Rust) and `p\textcolor{orange}{y}' (python)
+	\item its package manager called `\textcolor{orange}{corgi}' is just like `cargo'
+	\item its syntax is best described by `pythonic Rust' for runtime and Lean-like for comptime
+	\item type system is influenced by Rust + Lean + ATS, with monad replaced by trait Unveil and effects, and new memory types are introduced
+	\item it has a global computation graph like Haskell, or deep learning libraries
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Notations: Curry}
-	$X, Y, Z$ are types.
+\frametitle{Syntax}
 
-	$X \to Y$ denotes a function from $X$ to $Y$.
+Overall it's about system level and functional. No OOP but has methods and traits.
 
-	$X \to Y \to Z$ denotes a function from $X$ to $Y\to Z$ because $\to$ is right associative.
+Looks like mojo because the design goals are similar.
+\includegraphics[width=\linewidth]{snapshots/husky_quick_sort.png}
+\end{frame}
 
-	Note that $(X, Y)\to Z$ and $X \to Y \to Z$ are "equivalent".
+\begin{frame}
+\frametitle{Syntax}
+
+Symbol are introduced through `use', basically the same as Rust.
+
+Package, crate, file layout are basically the same as Rust.
+\includegraphics[width=\linewidth]{snapshots/husky_file_structure.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cargo is called Corgi}
+
+\includegraphics[width=\linewidth]{snapshots/husky_cargo_is_called_corgi.png}
+
+In Rust, cargo configuration errors will cause compiler to panick.
+
+But in Husky, corgi configuration errors are seen as syntax errors and there are customized toml parsers to make things as ergonomic as possible.
+\end{frame}
+
+\begin{frame}
+\frametitle{Type Definition}
+
+One can define
+\begin{itemize}
+	\item regular struct/structure
+	\item tuple struct/structure
+	\item unit struct/structure
+	\item enum/inductive
+	\item extern type
+\end{itemize}
+
+Here struct enum are for runtime values, and structure or inductive are for compile time (term level) values. The details are yet to be determined.
+\end{frame}
+
+\begin{frame}
+\frametitle{Type Definition Examples}
+\includegraphics[width=\linewidth]{snapshots/husky_struct_definition.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Type Definition Examples}
+\includegraphics[width=\linewidth]{snapshots/husky_enum_definition.png}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algebraic data type realized just like Rust}
+\includegraphics[width=\linewidth]{snapshots/husky_option_definition.png}
+\includegraphics[width=\linewidth]{snapshots/husky_result_definition.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Method}
+I choose to allow self parameter to be omitted.
+
+Use static for associated functions.
+\includegraphics[width=\linewidth]{snapshots/husky_method.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Trait}
+\includegraphics[width=\linewidth]{snapshots/husky_clone_derive_trait_side.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Derive Trait}
+\includegraphics[width=\linewidth]{snapshots/husky_clone_derive_example.png}
+
+In the above $\#derive$ is not a macro, but an attribute, serving as a marker. In the original trait definition, there could be a implementation of the trait for all marked types, with a generic representation of a general type, as inpired by Haskell's macro system. Details are to be determined.
+\end{frame}
+
+\begin{frame}
+\frametitle{Macro}
+There is no macro in husky.
+
+Macro = undefined behavior of compilers
+
+Husky stays as a research language in foreseeable future, so there is no pressure to be popular.
+\end{frame}
+
+\begin{frame}
+\frametitle{Type System}
+Design goals:
+\begin{itemize}
+	\item Easy as python to write
+	\item Safe as ATS, no undefined behaviors,
+	\item Zero-Cost and practical as Rust and C++
+\end{itemize}
+
+Layers of type system (necessarily complicated for efficiency, expressiveness):
+\begin{itemize}
+	\item Declarative Term. Easily read from syntax tree, but can be ambiguous Used in the first step for type signature inference.
+	\item Ethereal Term. Target efficient caching.
+	\item Fluffy Term. Target borrow checking. Not stored globally.
+	\item Hir Type. Close to Rust. Unnecessary terms are thrown away (phantom arguments, univalent values, etc)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Declarative Term for Type Signature Inference}
+\includegraphics[width=\linewidth]{snapshots/husky_declarative_term.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ethereal Term for Caching}
+\includegraphics[width=\linewidth]{snapshots/husky_ethereal_term.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fluffy Term for Borrow Checking}
+Fluffy terms are not saved globally because cache hits are hard.
+\includegraphics[width=\linewidth]{snapshots/husky_fluffy_term.png}
+\includegraphics[width=\linewidth]{snapshots/husky_fluffy_term2.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hir Type for Compilation}
+\includegraphics[width=\linewidth]{snapshots/husky_hir_ty.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variance}
+Basically the same as Rust. For extern generic type, variance can be explicitly declared,
+\includegraphics[width=\linewidth]{snapshots/husky_variance.png}
+
+Of course, having variance makes type inference more complicated.
+\end{frame}
+
+\begin{frame}
+\frametitle{Memory Types}
+Husky has more memory types than Rust
+\begin{itemize}
+	\item Leash type.
+	\item Pure Access.
+	\item At type.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Leash type}
+Denoted by $\sim$. This symbol was used for Box in early Rust.
+
+Leash type is for access values stored in global database. Similar to salsa. However, Leash type is like a universal interface, one can easily customize its implementation for specific tasks. One can implement it as static reference or garbage collected reference.
+\end{frame}
+
+\begin{frame}
+\frametitle{Leash In Action}
+\includegraphics[width=\linewidth]{snapshots/husky_leash_in_action.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Leash Can Have Memoized Field}
+\includegraphics[width=\linewidth]{snapshots/husky_memoized_field.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pure Access}
+
+It's a type alias or functor, \husky{PureAccess T} for a runtime type \husky{T} is equal to
+\begin{itemize}
+	\item itself, if \husky{T} is copyable
+	\item a reference to \husky{T}, otherwise
+\end{itemize}
+
+A function argument type is pure access by default.
+
+In Rust, using get method of HashMap requires a reference to the key, even if the key is copyable. This problem is solved in Husky through pure access.
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type}
+Rust introduces the concept of \textcolor{orange}{lifetime}, so does Husky, but Husky also introduces \textcolor{orange}{place}. 
+
+{\color{gray}Afterall, time and space is the same thing according to Einstein.}
+
+Special thanks to Bjarne Stroustrup. This is influenced by \cpp{const} lvalue and rvalue in C++.
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type: Rust Side Definition}
+
+\includegraphics[width=\linewidth]{snapshots/husky_place_defn00.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type: Rust Side Definition Continued}
+
+\includegraphics[width=\linewidth]{snapshots/husky_place_defn01.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type: Rust Side Definition Continued}
+
+\includegraphics[width=\linewidth]{snapshots/husky_place_defn02.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type: Rust Side Definition Continued}
+
+\includegraphics[width=\linewidth]{snapshots/husky_place_defn03.png}
+
+This list is not exhaustive.
+
+Place can include device information such as cpu/gpu.
+
+\husky{At} Type is simply a type together with a place. Written as @'$\alpha$ \husky{t} where '$\alpha$ is a label representing a place and \husky{t} a type. It's customary to use Latin letter labels for lifetime and greek letter labels for place.
+\begin{itemize}
+	\item it can be coerced implicitly from/to other types like leash, reference, mutable reference, etc, depending on specific place value.
+	\item place can be generic, thus no need for \rust{last_mut} like in Rust.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generic Place}
+\includegraphics[width=\linewidth]{snapshots/husky_generic_place.png}
+
+In the above, the method \husky{first} and \husky{last} has an implicit place template parameter. There is no need to define \husky{first_mut} and \husky{last_mut} as in Rust.
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type}
+At type is central to husky's type inference system. With it, one can write like python but the compiler will understand at a system level.
+\includegraphics[width=\linewidth]{snapshots/husky_quick_sort.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Place and At Type}
+An expression like \rust{a.x} in Rust can be only understood as move or copy.
+
+But Husky interprets the type of \husky{a.x} as a at type, with its place derived from that of \husky{a}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Borrow Checking in Rust}
+In Rust, lifetime is analyzed ``statically''. 
+
+\includegraphics[width=\linewidth]{snapshots/get_first_or_last_mut.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Borrow Checking in Husky}
+In Husky I've invented a `dynamic' way of checking, enabling more safe code to pass borrow checking and maybe also more efficient.
+
+{\color{gray}However, I have seen a paper from Germany that looks like doing similar things.}
+
+In Husky, just collect all lifetime constraints and simply run a `symbolic simulation' to detect lifetime conflicts, with special handles for branches and loops.
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad}
+
+Monad is fun and useful.
+\begin{itemize}
+	\item Functional way of defining Monad is too painful.
+	\item Rust way of adopting Monad is much clearer, but can't handle effect and a little cumbersome to implement
+	\item Husky simplifies Rust's way and combine with effectual system
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad through Effect and Unveil}
+In Rust,
+\begin{itemize}
+	\item effectual monads like IO are not introduced.
+	\item branching monads like Result and Option, however, are realized through traits \mintinline{Rust}{std::ops::Try} and \mintinline{Rust}{std::ops::FromResidual}
+	\includegraphics[width=\linewidth]{snapshots/rust_std_ops_try.png}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad in Rust}
+In Rust,
+\begin{itemize}
+	\item effectual monads like IO are not introduced.
+	\item branching monads like Result and Option, however, are realized through traits \mintinline{Rust}{std::ops::Try} and \mintinline{Rust}{std::ops::FromResidual}
+	\includegraphics[width=\linewidth]{snapshots/rust_std_ops_from_residual.png} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad in Husky}
+ In Husky, effects will be handled through attributes on functions and branching is realized through a single trait \mintinline{Rust}{core::ops::Unveil}.
+
+Type \rust{A} implements \mintinline{Rust}{core::ops::Unveil} \rust{B} means that if a function return \rust{A}, then an expression of type \rust{B} in its body can be unveiled.
+
+ \includegraphics[width=\linewidth]{snapshots/husky_core_ops_unveil.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad Implementation}
+\mintinline{Rust}{Result} monad in Husky, from standard library (not complete yet, trait constraints are missing)
+
+ \includegraphics[width=\linewidth]{snapshots/husky_impl_unveil_for_result.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad Implementation}
+\mintinline{Rust}{Class} monad in Husky for classification tasks in machine learning, from custom package
+
+ \includegraphics[width=\linewidth]{snapshots/husky_impl_unveil_for_result.png}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Monad in Action}
+
+In Husky, we use the same \rust{?} operator like in Rust to express branching
+
+\includegraphics[width=\linewidth]{snapshots/husky_mnist_classifier_main.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Monad in Action}
+\includegraphics[width=\linewidth]{snapshots/husky_mnist_classifier_is_one.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Advanced Type System}
+\begin{itemize}
+	\item Dependent type. The type of generic function is actually dependent type. This is needed to have type safe AI models.
+	\item Theorem proving. There are plans for them. Lean proves that there is no need for separate language like Coq and Ocaml. ATS proves that system level programming can be combined with theorem proving. Husky is going to continue this line of work.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Task System}
+In Husky one can fully customize compilation, runtime, debugging and visualization.
+
+A task is an instance of a type that satisfies \rust{IsTask} trait. This trait exists both in Rust and in Husky.
+
+\includegraphics[width=\linewidth]{snapshots/husky_is_task_trait.png}
+\includegraphics[width=\linewidth]{snapshots/husky_is_dev_ascension_trait.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Task Example}
+\includegraphics[width=\linewidth]{snapshots/husky_is_task_example_implementation.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Task Specification}
+Task (type and instance) is specified in the root of an executable crate by a zero argument function named task.
+
+For libraries, one might need to specify some traits the task type needs to satisfy.
+\end{frame}
+
+\begin{frame}
+\frametitle{Why So Much Trouble?}
+Different tasks require different strategies for compilation, evaluation, debugging. Husky will have very good development experience thanks to this.
+
+\begin{itemize}
+	\item Mixture of interpretation and compilation saves incremental compilation speed by minimizing dependency tree.
+	\item Certain task can have a top level computation graph, and husky support incremental evaluation so that values are automatically kept up to date with little computation. Say goodbye to jupyter notebook
+	\item Support for custom memory allocation and reference strategies.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Husky Stands on Giants' Shoulders}
+
+The complicated design of Husky is built upon amazing previous works.
 \end{frame}
 
 \section{Ascension Paradigm}
@@ -465,7 +844,7 @@ val main: f32 =
 	return select(y1, y2)
 \end{minted}
 
-In the above, $f1, f2$ are just normal functions, but $linear_regression$ and $select$ are `\textcolor{orange}{ascended beings}', called generative functions.
+In the above, \husky{f1}, \husky{f2} are just normal functions, but \husky{linear_regression} and \husky{select} are `\textcolor{orange}{ascended beings}', called generative functions.
 	
 \end{frame}
 
@@ -569,17 +948,6 @@ Will be covered in future lectures!
 \section{Debugging System}
 
 \begin{frame}
-\frametitle{Lessons from Haskell: Debugging Hell}
-\begin{itemize}
-	\item Monad is hard to debug. Mixing effect and control flow, too concise to be easily understood.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-test frame for section one
-\end{frame}
-
-\begin{frame}
 \frametitle{Debugger Bad in Haskell}
 	\includegraphics[width=\linewidth]{snapshots/haskell_debugging_is_hard00.png}
 \end{frame}
@@ -596,132 +964,8 @@ test frame for section one
 	\includegraphics[width=\linewidth]{snapshots/haskell_debugging_is_hard03.png}
 \end{frame}
 
-\section{Regular Feautures}
 \begin{frame}
-\frametitle{Regular Features}
-This section we will discuss the regular features of Husky.
-
-\begin{itemize}
-	\item functions
-	\item methods
-	\item values
-	\item type definitions
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Item}
-\end{frame}
-
-\begin{frame}
-\frametitle{Type Definition}
-
-One can define
-\begin{itemize}
-	\item regular struct/structure
-	\item tuple struct/structure
-	\item unit struct/structure
-	\item enum/inductive
-	\item 
-\end{itemize}
-
-Here struct enum are for runtime values, and structure or inductive are for compile time (term level) values. The details are yet to be determined.
-\end{frame}
-
-\begin{frame}
-\frametitle{Variance}
-Basically the same as Rust.
-
-Of course, having variance makes type inference more complicated, but I have the time.
-\end{frame}
-
-\begin{frame}
-\frametitle{Place and At Type}
-Rust introduces the concept of \textcolor{orange}{lifetime}, so does Husky, but Husky also introduces \textcolor{orange}{place}. 
-
-{\color{gray}Afterall, time and space is the same thing according to Einstein.}
-\end{frame}
-
-\begin{frame}
-\frametitle{Place and At Type}
-For linear link list, Husky can do without unsafe, but Rust can't.
-\end{frame}
-
-\begin{frame}
-\frametitle{Borrow Checking}
-In Rust, lifetime is tied to a region, which limits its expressive power. In Husky I've invented a better way of checking, maybe also more efficient, enabling more safe code to pass borrow checking.
-
-{\color{gray}However, I have seen a paper from Germany that looks like doing similar things.}
-
-In Husky, I just collect all lifetime constraints and simply run a `symbolic simulation' to detect lifetime conflicts, with special handles for branches and loops. Unfortunately, they are implemented only in the old C++ codebase, I've not yet got time to do that in the current Rust codebase.
-\end{frame}
-
-\begin{frame}
-\frametitle{Decorators}
-must\_use, no\_discard
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Monad through Effect and Unveil}
-\end{frame}
-
-\begin{frame}
-\frametitle{Incremental Code Analysis}
-\end{frame}
-
-\begin{frame}
-\frametitle{Regular Features: Incremental Compilation}
-\end{frame}
-
-\begin{frame}
-\frametitle{Regular Features: Affine Type}
-\end{frame}
-
-\begin{frame}
-\frametitle{Regular Features: Lifetime and Place}
-\end{frame}
-
-\begin{frame}
-\frametitle{Regular Features: Generics}
-\end{frame}
-
-\begin{frame}
-\frametitle{Regular Features: Dependent Types}
-\end{frame}
-
-\section{Development Progress}
-
-\begin{frame}
-\frametitle{Agility}
-\begin{itemize}
-	\item What I don't like is, run into stable version and then discover the features don't satisfy the needs.
-	\item Agility: keep language unstable, test it for various tasks, and gradually adapt.
-	\item 5-10 years from version 0.1, 15-20 years from version 1.0.
-	\item Good enough to apply it for AI research within months.
-	\item For production, transpile into C or Zig or even high level C++ or Rust.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Solo Project}
-
-So far it has been only me.
-
-\begin{itemize}
-	\item 
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Community}
-
-The community should be kept very small for the language development to be agile.
-\begin{itemize}
-	\item AI researchers.
-	\item Game developers.
-	\item UI
-	\item students
-\end{itemize}
+\frametitle{Husky Debugging System: Expanding the computation graph into a Trace Tree}
+\includegraphics[width=\linewidth]{snapshots/trace-based-debugging-system.png}
 \end{frame}
 \end{document}
