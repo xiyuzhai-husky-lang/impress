@@ -38,6 +38,7 @@
 \newcommand{\highlight}[1]{\textcolor{orange}{#1}}
 \newcommand{\expect}{\mathop{\mathbb{E}}}
 \newcommand{\argmax}{\mathop{\text{argmax}}}
+\newcommand{\argmin}{\mathop{\text{argmin}}}
 
 \title{Towards Meaningful Deep Learning Theories}
 \author{Xiyu Zhai}
@@ -100,6 +101,7 @@ I shall talk about
 \begin{itemize}
 	\item our theoretical work on optimization theory of ultra wide neural networks.
 	\item our theoretical work on interpolation yet generation phenomenon.
+	\item ongoing work on transformer expressive power for CV/NLP
 	\item why the gap between theory and practice is so huge.
 	\item theories of machine learning theory beyond generalization briefly.
 	\item the new programming language for AI briefly.
@@ -303,26 +305,104 @@ Keep calm and carry on!
 
 \begin{frame}
 \frametitle{Generalization}
+Traditional thinking: tradeoff between training error and generalization
+
+\includegraphics[width=\linewidth]{fit}
+\end{frame}
+
+\begin{frame}{Generalization}
+Expectation...
+\includegraphics[width=\linewidth]{loss_curve_expected.png}
+\end{frame}
+
+\begin{frame}{Generalization}
+Reality can be ...
+\includegraphics[width=\linewidth]{loss_curve}
 \end{frame}
 
 \begin{frame}
-	thm for low dim impossible
+\frametitle{Kernel Ridge Regression}
+To focus, we choose to study kernel ridge regression for this phenomenon.
+
+\begin{equation}
+	\hat{f}\in\argmin\limits_{f\in \mathcal{H}} \frac{1}{n}\sum\limits_{i=1}^n(f(x_i)-y_i)^2+ \lambda \|f\|_\mathcal{H}^2
+\end{equation}
+
+Here $\mathcal{H}$ is a Reproducing Kernel Hilbert Space (RKHS) corresponding to a kernel $K$, $\|\cdot\|_\mathcal{H}$ is the corresponding RKHS norm, and $(x_1,y_1),\cdots,(x_n,y_n)\in \mathbb{R}^d\times \mathbb{R}$ are the training data.
+
+The method interpolates the data when $\lambda = 0$, .e.
+\begin{equation}
+	\hat{f}(x_i)=y_i
+\end{equation}
+
+Previous work shows it performs ``unreasonably well'' in this regime.
+
 \end{frame}
 
 \begin{frame}
-	intuition
+\frametitle{Previous Work}
+In \cite{jint}, they studied the high-dimension regime $n\asymp d$, explicating a phenomenon of implicit regularization, due to the curvature of the kernel function, high dimensionality and favorable geometric properties of the training data, ..
+
+High dimensionality $d$ of the input space is critical for the implicit regularization.
+
+Question: what if dimensionality is low?
+
+Our experiments: interpolation doesn't work for low-dimensionality.
+
+Our theory: interpolation doesn't work for low-dimensionality.
+
+\begin{thebibliography}{9}
+\scriptsize
+\bibitem{jint}
+Tengyuan Liang and Alexander Rakhlin. Just interpolate: Kernel” ridgeless” regression can generalize
+\end{thebibliography}
 \end{frame}
 
 \begin{frame}
-	key trick
+	Let $f^*$ be an unknown smooth function over $\Omega=\overline{B_{\mathbb{R}^d}(0,1)}$ that is not identically zero, and $\mathcal{P}$ an unknown distribution over $\Omega$ with probability density function $\rho$ bounded as
+	\begin{equation}
+		0< c_ \rho\le \rho\le C_ \rho.
+	\end{equation}
+
+	Suppose $X_1,\cdots,X_n$ are sampled i.i.d according to $\mathcal{P}$, and
+	\begin{equation}
+		Y_i=f^*(X_i)+\xi_i
+	\end{equation}
+	with $\xi_i$ i.i.d. noise, let $\mathcal{S}$ denote $\{(X_i,Y_i)\}_{i=1}^n$
+
+	\begin{thm}[\cite{cint}]
+		Let $\hat{f}_c$ be the minimum-norm soultion interpolating $(x_i,y_i)$ w.r.t Laplace kernel $K_c(x,y)= c^d e^{-c\|x-y\|}$. For fixed $n$ and odd dimension $d$, with probability at least $1-O(\frac{1}{\sqrt{n}})$ over the draw of $S$,
+		\begin{equation}
+			\forall c> 0,\mathop{\mathbb{E}}\limits_{X\sim \mathcal{P}}\left(
+			\hat{f}_c(X)-f^*(X)\right)^2\ge \Omega_d(1)
+		\end{equation}
+	\end{thm}
+\begin{thebibliography}{9}
+\scriptsize
+\bibitem{cint}
+
+Alexander Rakhlin, Xiyu Zhai. Consistency of Interpolation with Laplace Kernels is a High-Dimensional Phenomenon
+\end{thebibliography}
 \end{frame}
 
 \begin{frame}
-	key trick
+\frametitle{Intuition: Either Too Smooth Or Too Close to Zero}
+\includegraphics[width=\linewidth]{int_intuition.png}
+Sketch of Proof
+\begin{itemize}
+	\item For hyperparameter $c$ not large, prove $\hat{f}$ is too smooth.
+	\item For hyperparameter $c$ not small, prove $\hat{f}$ is too close to $0$.
+	\item The two regimes overlaps and cover all possible choices of $c$.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-	connect to dl
+\frametitle{Connection to Deep Learning via Neural Tangent Kernel}
+
+The conclusion carries over to ultra wide neural networks through our previous results.
+\begin{center}
+\includegraphics[width=0.9\linewidth]{ntk.png}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -461,18 +541,20 @@ What's missing in the picture?
 
 \mbox{}
 
-Everything is mathematical, there is no mention of computation.
+Everything is mathematical, there is no mention of inference computation.
 
 \mbox{}
 
-But actually computation matters, not just training time, inference computation matters too.
+But actually inference computation matters, sometimes even more than training time.
+
+Just like app development, an app is developed only once, but can be used millions of times.
 \end{frame}
 
 \begin{frame}
 Examples
 \begin{itemize}
 	\item image/video AI generation is slow
-	\item llm is slow
+	\item LLM is slow
 	\item traditional AI methods, especially those in computer vision, often scales poorly in terms of inference efficiency, thus don't perform as well as deep learning
 	\item people are using deep learning to replace slow traditional theory-based methods in solving PDE, molecules, computer graphics etcs.
 
@@ -503,7 +585,7 @@ $\mathcal{H}_1$ is statistically more complicated, but is more feasible to learn
 \end{frame}
 
 \begin{frame}
-\frametitle{NP-ML Hypothesis}
+\frametitle{Nondeterministic PAC: inference as NP problem}
 Hypothesis: the inference process of many machine learning problems can be formulated more succinctly in NP form, with verifier to be learned.
 
 More specifically, let $\mathcal{X}, \mathcal{Y}$ be input and label spaces, $W$ be parameter space, and let $\Gamma$ be a certificate space, fix $f$ a function from $\mathcal{X}\times \mathcal{Y}\times \Gamma\times W$ to $\mathbb{R}$, then we can define a hypothesis space like
@@ -518,7 +600,7 @@ gives the energy(or log-likelihood) of $x$ maps to $y$.
 
 \mbox{}
 
-Remarks: this hypothesis introduces nontrivial computational element to inference, making the problem theoretically more intriging
+Remarks: this hypothesis introduces nontrivial computational element to inference, making the problem more challenging.
 \end{frame}
 
 \begin{frame}
@@ -549,19 +631,7 @@ Most of pattern recognition in AI satisfies this, for example:
 \end{frame}
 
 \begin{frame}
-\frametitle{NP-ML Hypothesis: AI most of pattern recognition satisfies this}
-	
-\definecolor{lightblue}{rgb}{0.53, 0.81, 0.98}
-\begin{center}
-\begin{tikzpicture}
-    \fill[lightblue] (0.5,0) ellipse (2.3cm and 2.0cm);
-    \fill[yellow] (0,0) circle [radius=0.7cm];
-     \node[align=center] at (0,0) {$\mathcal{H}_0$};
-     \node[align=center] at (2.25,0) {$\mathcal{H}_1$};
-\end{tikzpicture}
-\end{center}
-
-This explains:
+NP-ML hypothesis explains:
 \begin{itemize}
 	\item many traditional AI methods are slow than deep learning.
 
@@ -616,6 +686,17 @@ Advantages
 	\item verifier is clean, can be analyzed theoretically in a more thorough way or being totally explainable.
 
 	Solver, on the other hand, can be arbitrarily messy.
+	\item verifier can be highly modular.
+
+	For example, imagenet has 1000 classes. Each class can have a dedicated verifier.
+
+	The vision system can run like
+	\begin{itemize}
+		\item A cheap model that predicts top 10 possible classes.
+		\item Apply verifier from each of the 10 classes.
+	\end{itemize}
+
+\highlight{feed-forward neural networks need all weights for one inference, but this architecture needs not.} Our brains seem to work more like this.
 \end{itemize}
 \end{frame}
 
