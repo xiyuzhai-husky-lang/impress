@@ -103,8 +103,8 @@ I shall talk about
 	\item our theoretical work on interpolation yet generation phenomenon.
 	\item ongoing work on transformer expressive power for CV/NLP
 	\item why the gap between theory and practice is so huge.
-	\item theories of machine learning theory beyond generalization briefly.
-	\item the new programming language for AI briefly.
+	\item my visions of machine learning theory beyond generalization
+	\item the new programming language for AI
 \end{itemize}
 \end{frame}
 
@@ -146,6 +146,8 @@ is small for $m$ large enough.
 		\item Generalization.
 
 		The difference between testing error and training error.
+
+		Bounded via VC/Radamacher dimensionality and number of samples.
 	\end{itemize}
 
 	Deep learning blows away traditional understanding in both aspects.
@@ -288,7 +290,7 @@ A convergence theory for deep learning via over-parameterization
 \frametitle{Limitations}
 The fundamental limitations of our work are
 \begin{itemize}
-	\item overparametrization is unrealistic in practice.
+	\item overparametrization to such extent is unrealistic in practice.
 
 	For one thing, inference efficiency matters, it's more desirable to have fewer parameters.
 	\item the actual dynamics might work under different mechanisms.
@@ -371,7 +373,7 @@ Tengyuan Liang and Alexander Rakhlin. Just interpolate: Kernel” ridgeless” r
 	with $\xi_i$ i.i.d. noise, let $\mathcal{S}$ denote $\{(X_i,Y_i)\}_{i=1}^n$
 
 	\begin{thm}[\cite{cint}]
-		Let $\hat{f}_c$ be the minimum-norm soultion interpolating $(x_i,y_i)$ w.r.t Laplace kernel $K_c(x,y)= c^d e^{-c\|x-y\|}$. For fixed $n$ and odd dimension $d$, with probability at least $1-O(\frac{1}{\sqrt{n}})$ over the draw of $S$,
+		Let $\hat{f}_c$ be the minimum-norm soultion interpolating $(X_i,Y_i)$ w.r.t Laplace kernel $K_c(x,y)= c^d e^{-c\|x-y\|}$. For fixed $n$ and odd dimension $d$, with probability at least $1-O(\frac{1}{\sqrt{n}})$ over the draw of $S$,
 		\begin{equation}
 			\forall c> 0,\mathop{\mathbb{E}}\limits_{X\sim \mathcal{P}}\left(
 			\hat{f}_c(X)-f^*(X)\right)^2\ge \Omega_d(1)
