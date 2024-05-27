@@ -1,7 +1,10 @@
+% !TEX options=--shell-escape
 \documentclass{article}
 
 \usepackage{arxiv}
 
+\usepackage{amsmath}
+\usepackage{amstext}
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -15,6 +18,9 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{doi}
+\usepackage{minted}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
 
 \title{The Husky Programming Language}
 
@@ -36,7 +42,17 @@ pdfauthor={David S.~Hippocampus, Elias D.~Striatum},
 pdfkeywords={First keyword, Second keyword, More},
 }
 
+
+
+
 \begin{document}
+
+\usemintedstyle{xcode}
+% \definecolor{codeBg}{HTML}{282822}
+% \definecolor{textBg}{HTML}{1c1c17}
+
+% \pagecolor{textBg}
+% \color{white}
 \maketitle
 
 \begin{abstract}
@@ -47,88 +63,66 @@ pdfkeywords={First keyword, Second keyword, More},
 % keywords can be removed
 \keywords{First keyword \and Second keyword \and More}
 
+\setminted[python]{
+	breaklines=true,
+	encoding=utf8,
+	fontsize=\footnotesize,
+	tabsize=4,
+	bgcolor=codeBg
+}
+
 
 \section{Introduction}
-\lipsum[2]
-\lipsum[3]
+This is introduction.
 
+Rust~\cite{bugden2022rust}.
 
-\section{Headings: first level}
-\label{sec:headings}
+\section{Super Computation Graph}
 
-\lipsum[4] See Section \ref{sec:headings}.
+\paragraph{Super computation graph in the simplest form.} Let $G$ be a directed graph with vertices $V$. We associate each vertex $v\in V$ with a type $T_v$.
 
-\subsection{Headings: second level}
-\lipsum[5]
-\begin{equation}
-	\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
-\end{equation}
+Let $V^{\text{sources}}$ be all the source vertices and let $T^{\text{source}}:=\prod_{v\in V^{\text{sources}}}T_v$ be the product of all the types associated with source vertices.
 
-\subsubsection{Headings: third level}
-\lipsum[6]
+Let $V^{\text{incoming}}_v$ be all the incoming vertices of some non-source vertex $v\in V$, and let $T^{\text{incoming}}_v:=\prod_{v\in V^{\text{incoming}}_v}T_v$ be the product of all the types associated with incoming vertices of $v$.
 
-\paragraph{Paragraph}
-\lipsum[7]
+Given assigments of generators $g_v$ for each non-source $v\in V\setminus V^{\text{source}}$ a function of type to be specified later, we aim to construct $f_v: T^{\text{source}} \rightarrow T_v$ for each $v\in V$, as follows,
 
-
-
-\section{Examples of citations, figures, tables, references}
-\label{sec:others}
-
-\subsection{Citations}
-Citations use \verb+natbib+. The documentation may be found at
-\begin{center}
-	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-\end{center}
-
-Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a thing \citep{kour2014real, keshet2016prediction} but other people thought something else \citep{kour2014fast}. Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
-
-\subsection{Figures}
-\lipsum[10]
-See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
-\lipsum[11]
-
-\begin{figure}
-	\centering
-	\fbox{\rule[-.5cm]{4cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-	\caption{Sample figure caption.}
-	\label{fig:fig1}
-\end{figure}
-
-\subsection{Tables}
-See awesome Table~\ref{tab:table}.
-
-The documentation for \verb+booktabs+ (`Publication quality tables in LaTeX') is available from:
-\begin{center}
-	\url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-
-
-\begin{table}
-	\caption{Sample table title}
-	\centering
-	\begin{tabular}{lll}
-		\toprule
-		\multicolumn{2}{c}{Part}                   \\
-		\cmidrule(r){1-2}
-		Name     & Description     & Size ($\mu$m) \\
-		\midrule
-		Dendrite & Input terminal  & $\sim$100     \\
-		Axon     & Output terminal & $\sim$10      \\
-		Soma     & Cell body       & up to $10^6$  \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:table}
-\end{table}
-
-\subsection{Lists}
 \begin{itemize}
-	\item Lorem ipsum dolor sit amet
-	\item consectetur adipiscing elit.
-	\item Aliquam dignissim blandit est, in dictum tortor gravida eget. In ac rutrum magna.
+	\item First, we specify that for each source vertex $v\in V^{\text{source}}$, $f_v$ is the projection from $T^{\text{source}}$ to $T_v$.
+	\item Then, we specify that for each non-source vertex $v\in V\setminus V^{\text{source}}$,
+	      \begin{equation}
+		      f_v:=g_v(f^{\text{incoming}}_v)\circ f^{\text{incoming}}_v
+	      \end{equation}
+	      where
+	      \begin{equation}
+		      f^{\text{incoming}}_v:=\prod_{v'\in V^{\text{incoming}}_v}f_{v'}.
+	      \end{equation}
 \end{itemize}
 
+The type of $g_v$ is thus determined to be $\prod_{v'\in V^{\text{incoming}}_{v}}(T^{\text{source}} \rightarrow T_{v'})\rightarrow T^{\text{incoming}}_v\rightarrow T_v$.
 
+The key takeaway is that we don't specify $f_v$ by simply composing those $f_{v'}$ with $v'$ incoming vertices of $v$ with a fixed function, we specify by generating a function based on incoming vertices and then compose. By setting $g_v$ to be a constant function over the first argument, we recover the ordinary computation graph.
+
+The following C code implements.
+\begin{minted}[tabsize=4]{C}
+int x = 0;
+
+int y() { return x + 1; }
+
+int y_with_x(int new_x) {
+	int old_x = new_x;
+	x = new_x;
+	int y_value = y();
+	x = old_x;
+	return y_value;
+}
+
+int main() {
+	printf("y equals %d\n", y());
+	printf("y with x = 2 equals %d\n", y_with_x(2));
+	printf("y equals %d\n", y());
+}
+\end{minted}
 \bibliographystyle{unsrtnat}
 \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
 \end{document}
