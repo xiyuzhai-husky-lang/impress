@@ -79,13 +79,13 @@ Rust~\cite{bugden2022rust}.
 
 \section{Super Computation Graph}
 
-\paragraph{Super computation graph in the simplest form.} Let $G$ be a directed graph with vertices $V$. We associate each vertex $v\in V$ with a type $T_v$.
+\paragraph{Super computation graph in the simplest form.} Let $G$ be a directed graph with vertices $V$. We associate each vertex $v\in V$ with a set $S_v$ called the \textbf{value set}.
 
-Let $V^{\text{sources}}$ be all the source vertices and let $T^{\text{source}}:=\prod_{v\in V^{\text{sources}}}T_v$ be the product of all the types associated with source vertices.
+Let $V^{\text{sources}}$ be all the source vertices and let $S^{\text{source}}:=\prod_{v\in V^{\text{sources}}}S_v$ be the cartesian product of all the value sets associated with source vertices.
 
-Let $V^{\text{incoming}}_v$ be all the incoming vertices of some non-source vertex $v\in V$, and let $T^{\text{incoming}}_v:=\prod_{v\in V^{\text{incoming}}_v}T_v$ be the product of all the types associated with incoming vertices of $v$.
+Let $V^{\text{incoming}}_v$ be all the incoming vertices of some non-source vertex $v\in V$, and let $S^{\text{incoming}}_v:=\prod_{v\in V^{\text{incoming}}_v}S_v$ be the product of all the value sets associated with incoming vertices of $v$.
 
-Given assigments of generators $g_v$ for each non-source $v\in V\setminus V^{\text{source}}$ a function of type to be specified later, we aim to construct $f_v: T^{\text{source}} \rightarrow T_v$ for each $v\in V$, as follows,
+Given assigments of generators $g_v$ for each non-source $v\in V\setminus V^{\text{source}}$ a function of type to be specified later, we aim to construct $f_v: S^{\text{source}} \rightarrow S_v$ for each $v\in V$, as follows,
 
 \begin{itemize}
 	\item First, we specify that for each source vertex $v\in V^{\text{source}}$, $f_v$ is the projection from $T^{\text{source}}$ to $T_v$.
@@ -99,7 +99,7 @@ Given assigments of generators $g_v$ for each non-source $v\in V\setminus V^{\te
 	      \end{equation}
 \end{itemize}
 
-The type of $g_v$ is thus determined to be $\prod_{v'\in V^{\text{incoming}}_{v}}(T^{\text{source}} \rightarrow T_{v'})\rightarrow T^{\text{incoming}}_v\rightarrow T_v$.
+The type of $g_v$ is thus determined to be $\prod\limits_{v'\in V^{\text{incoming}}_{v}}S_{v'}^{S^{\text{source}} }\rightarrow S^{\text{incoming}}_v\rightarrow S_v$.
 
 The key takeaway is that we don't specify $f_v$ by simply composing those $f_{v'}$ with $v'$ incoming vertices of $v$ with a fixed function, we specify by generating a function based on incoming vertices and then compose. By setting $g_v$ to be a constant function over the first argument, we recover the ordinary computation graph.
 
