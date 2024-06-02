@@ -88,15 +88,16 @@ Let $V^{\text{incoming}}_v$ be all the incoming vertices of some non-source vert
 Given assigments of generators $g_v$ for each non-source $v\in V\setminus V^{\text{source}}$ a function of domains and codomains to be specified later, we aim to construct $f_v: S^{\text{source}} \rightarrow S_v$ for each $v\in V$, as follows,
 
 \begin{itemize}
-	\item First, we specify that for each source vertex $v\in V^{\text{source}}$, $f_v$ is the projection from $T^{\text{source}}$ to $T_v$.
+	\item First, we specify that for each source vertex $v\in V^{\text{source}}$, $f_v$ is the projection from $S^{\text{source}}$ to $S_v$.
 	\item Then, we specify that for each non-source vertex $v\in V\setminus V^{\text{source}}$,
 	      \begin{equation}
 		      f_v:=g_v(f^{\text{incoming}}_v)\circ f^{\text{incoming}}_v
 	      \end{equation}
 	      where
 	      \begin{equation}
-		      f^{\text{incoming}}_v:=\prod_{v'\in V^{\text{incoming}}_v}f_{v'}.
+		      f^{\text{incoming}}_v:=\prod_{v'\in V^{\text{incoming}}_v}f_{v'},
 	      \end{equation}
+	      which can be identified as a function from $S^{\text{source}}$ to $\prod_{v'\in V^{\text{incoming}}_v}S_{v'}$.
 \end{itemize}
 
 The signature of $g_v$ is thus determined to be $g_v:\prod\limits_{v'\in V^{\text{incoming}}_{v}}S_{v'}^{S^{\text{source}} }\rightarrow  S_v^{S^{\text{incoming}}_v}$.
