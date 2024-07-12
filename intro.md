@@ -16,6 +16,12 @@ Now a hybrid AI system should be able to ***automatically train and compose the 
 
 The Husky programming language is designed to faciliate development of new Hybrid AI systems. It's not meant to be perfect, but meant to be provocative, stimulate as much innovation as possible. Thus, it has the following design goals:
 
-- **extremely convenient debugging**. Debugging is notoriously one of the most time consuming part of software development and computer science research. However, rarely debugging is considered at the language design level. The Husky programming language has higher level builtin notions that allows debugger to present the computation progress in a timeless tree form, allowing quickly locating bugs.
 - **development in one language**. It's a pain to switch languages. Husky is targeted towards Hybrid AI, which shall combines things that we typically use different languages to write, including Python, Lisp, Coq, Ocaml, Haskell, etc. Husky is designed to be able to write all possible genres of AI as smoothly as possible.
 - **builtin language constructs for hybrid AI components and high level expressions to create and combine them.** In most existing languages, everything is understood as a value. To elevate above the level of values, one resorts to complicated abstractions and macros and type tricks and sugars (like Monads, lisp macros, etc). In Husky, we fully avoid these things yet able to provide the right abstraction level for the development of hybrid AI. Roughly speaking, in Husky one can easily define a value that depends on one or several global variables, and the dependency is statically known. Then it can be viewed either as just a value or a function of one or several variables, depending on circumstances. As we shall see, this frees up a lot of language design possibilitie which we shall exploit to facilite hybrid AI development. 
+- **extremely convenient debugging**. Debugging is notoriously one of the most time consuming part of software development and computer science research. However, rarely debugging is considered at the language design level. The Husky programming language has higher level builtin notions that allows debugger to present the computation progress in a timeless tree form, allowing quickly locating bugs.
+
+## Development in One Language
+
+## Ascension
+
+## Debugger
