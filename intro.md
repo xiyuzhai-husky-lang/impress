@@ -6,7 +6,9 @@ Today, everything is about AI, and AI is about function approximation. The most 
 
 ### Hybrid AI
 
-Here, hybrid AI means an AI that combines models trained independently to form an organic entity, as contrary to the end-to-end approach. Each component can be a neural network, obtained from an end-to-end training procedure, a hard coded function written by human experts, or a symbolic rule system with rules either collected or learned. We must stress that, the word "hybrid" is meant be the opposite of end-to-end, meaning the components are not trained simultaneously connected together. So a hybrid AI system can even be composed purely neural networks.
+It's basically the same as compound AI system defined in https://bair.berkeley.edu/blog/2024/02/18/compound-ai-systems/. However, we want to use a different term to avoid later confusion if things evolve towards different directions.
+
+Here, hybrid AI means an AI that combines models trained independently to form an organic entity, as contrary to the end-to-end approach.  Each component can be a neural network, obtained from an end-to-end training procedure, a hard coded function written by human experts, or a symbolic rule system with rules either collected or learned. We must stress that, the word "hybrid" is meant be the opposite of end-to-end, meaning the components are not trained simultaneously connected together. So a hybrid AI system can even be composed purely neural networks.
 
 TODO: explain possible benefits of Hybrid AI.
 
